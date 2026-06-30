@@ -1,4 +1,5 @@
 import pandas as pd
+from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -17,6 +18,10 @@ def load_data(path='german_credit_data.csv'):
     df = df.drop(columns=['Risk'])
     return df
 
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 def build_preprocessor(X):
     numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
